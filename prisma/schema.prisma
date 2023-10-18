@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model controle_de_estoque {
+  id_produto          Int      @id @default(autoincrement())
+  nome                String
+  categoria           String
+  preco               Float
+  quantidade          Int
+  fornecedor          String
+  data_de_recebimento DateTime @default(now())
+  data_de_validade    DateTime @updatedAt
+}
+
+model gerenciamento_de_clientes {
+  id_cliente   Int      @id @default(autoincrement())
+  nome         String
+  email        String   @unique
+  data_criacao DateTime @default(now())
+}
+
+model gerenciamento_de_funcionarios {
+  id_funcionario Int      @id @default(autoincrement())
+  nome           String
+  email          String   @unique
+  telefone       String
+  criado_em      DateTime @default(now())
+  atualizado_em  DateTime @updatedAt
+}
+
+model controle_financeiro {
+  id                  Int      @id @default(autoincrement())
+  nome_cliente        String
+  valor_recebido      Int
+  data_de_recebimento DateTime @default(now())
+}
+
+model gestao_servicos {
+  id           Int      @id @default(autoincrement())
+  nome_servico String   @unique
+  descricao    String
+  status       String
+  datainicio   DateTime @default(now())
+}
